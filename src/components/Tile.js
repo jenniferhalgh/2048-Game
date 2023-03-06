@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import '../styles/tile.css'
 //import { GameContext } from "../components/Game";
 import { motion } from "framer-motion";
@@ -8,7 +8,6 @@ function Tile({row, column, value, merged}) {
   //  const currentVal = cells[row][column]
   var show;
   var color;
-  var size;
   
 
 
@@ -94,7 +93,7 @@ function Tile({row, column, value, merged}) {
     }
   }
 
-  if(value!=0){
+  if(value!==0){
     color = {
     backgroundColor: color.backgroundColor,
     animationName: color.animationName,

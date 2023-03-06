@@ -1,7 +1,7 @@
 
 import Board from "./Board";
 import '../styles/game.css'
-import React, { useState , createContext, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Button from 'react-bootstrap/Button';
 
@@ -14,7 +14,6 @@ var mergedLeft=false;
 var mergedRight=false;
 var generateNewTile = false;
 var score = 0;
-var dir="";
 var mergedBoard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
 var game = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]] // empty board
 game[x][y]=2
@@ -30,16 +29,16 @@ useEffect(() => {
       // unsubscribe event
       document.removeEventListener("keydown", onKeyPressed);
     };
-  }, []);
+  });
 
 const moveDown = () => {
     mergedDown=false;
     do{
     for(let x=game.length-1; x>0;x--){ //from bottom to top
         for(let y=game[x].length-1; y>=0;y--){ //from right to left
-            if(game[x][y]==0){ //if the current tile is 0
+            if(game[x][y]===0){ //if the current tile is 0
                 for(let x2=x-1; x2>=0;x2--){ //for the current x go upwards
-                    if(game[x2][y]!=0){ //if the tile above the current x has a value
+                    if(game[x2][y]!==0){ //if the tile above the current x has a value
                         game[x][y]=game[x2][y] //move the tile down
                         game[x2][y]=0;
                         setTiles([...game]);
@@ -54,12 +53,12 @@ const moveDown = () => {
             
         }
     }
-    if(mergedDown==true){
+    if(mergedDown===true){
         break;
     }
         for(let x=game.length-1; x>0;x--){ //from bottom to top
         for(let y=game[x].length-1; y>=0;y--){ //from right to left
-        if (game[x][y]==game[x-1][y] && game[x][y]!=0){ //if the current tile has the same value as the tile above
+        if (game[x][y]===game[x-1][y] && game[x][y]!==0){ //if the current tile has the same value as the tile above
             game[x][y]*=2; //merge them
             game[x-1][y]=0;
             setTiles([...game]);
@@ -71,9 +70,9 @@ const moveDown = () => {
         }
     }
     }
-    } while (mergedDown=true)
+    } while (mergedDown===true)
 
-    if(generateNewTile==true){
+    if(generateNewTile===true){
         newTile();
         generateNewTile=false;
     }
@@ -84,9 +83,9 @@ const moveUp = () => {
     do{
         for(let x=0; x<game.length-1;x++){
             for(let y=0; y<game[x].length;y++){
-            if(game[x][y]==0){
+            if(game[x][y]===0){
                 for(let x2=x+1; x2<game[x].length;x2++){
-                    if(game[x2][y]!=0){
+                    if(game[x2][y]!==0){
                         game[x][y]=game[x2][y]
                         game[x2][y]=0;
                         setTiles([...game]);
@@ -101,12 +100,12 @@ const moveUp = () => {
             
         }
     }
-    if(mergedUp==true){
+    if(mergedUp===true){
         break;
     }
         for(let x=game.length-1; x>0;x--){
         for(let y=game[x].length-1; y>=0;y--){
-        if (game[x][y]==game[x-1][y] && game[x][y]!=0){
+        if (game[x][y]===game[x-1][y] && game[x][y]!==0){
             game[x][y]*=2;
             game[x-1][y]=0;
             setTiles([...game]);
@@ -118,9 +117,9 @@ const moveUp = () => {
         }
     }
     }
-    } while (mergedUp=true)
+    } while (mergedUp===true)
 
-    if(generateNewTile==true){
+    if(generateNewTile===true){
         newTile()
         generateNewTile=false;
     }
@@ -131,9 +130,9 @@ const moveRight = () => {
     do{
         for(let y=game.length-1; y>0;y--){
         for(let x=game.length-1; x>=0;x--){
-            if(game[x][y]==0){
+            if(game[x][y]===0){
                 for(let y2=y-1; y2>=0;y2--){
-                    if(game[x][y2]!=0){
+                    if(game[x][y2]!==0){
                         game[x][y]=game[x][y2]
                         game[x][y2]=0;
                         setTiles([...game]);
@@ -147,12 +146,12 @@ const moveRight = () => {
             }
         }
     }
-    if(mergedRight==true){
+    if(mergedRight===true){
         break;
     }
     for(let y=game.length-1; y>0;y--){
         for(let x=game.length-1; x>=0;x--){
-            if (game[x][y]==game[x][y-1] && game[x][y]!=0){
+            if (game[x][y]===game[x][y-1] && game[x][y]!==0){
                 game[x][y]*=2;
                 game[x][y-1]=0;
                 setTiles([...game]);
@@ -164,8 +163,8 @@ const moveRight = () => {
             }
         }
     } 
-    } while (mergedRight==true);
-    if(generateNewTile==true){
+    } while (mergedRight===true);
+    if(generateNewTile===true){
         newTile()
         generateNewTile=false;
     }
@@ -177,9 +176,9 @@ const moveLeft = () => {
     do{
         for(let y=0; y<game.length-1;y++){
         for(let x=0; x<game.length;x++){
-            if(game[x][y]==0){
+            if(game[x][y]===0){
                 for(let y2=y+1; y2<game[y].length;y2++){
-                    if(game[x][y2]!=0){
+                    if(game[x][y2]!==0){
                         game[x][y]=game[x][y2]
                         game[x][y2]=0;
                         setTiles([...game]);
@@ -193,12 +192,12 @@ const moveLeft = () => {
             }
         }
     }
-    if(mergedLeft==true){
+    if(mergedLeft===true){
         break;
     }
     for(let y=0; y<game.length-1;y++){
         for(let x=0; x<game.length;x++){
-            if (game[x][y]==game[x][y+1] && game[x][y]!=0){
+            if (game[x][y]===game[x][y+1] && game[x][y]!==0){
                 game[x][y]*=2;
                 game[x][y+1]=0;
                 setTiles([...game]);
@@ -210,8 +209,8 @@ const moveLeft = () => {
             }
         }
     }
-} while (mergedLeft==true)
-    if(generateNewTile==true){
+} while (mergedLeft===true)
+    if(generateNewTile===true){
         newTile()
         generateNewTile=false;
 
@@ -223,7 +222,7 @@ const newTile = () => {
         
     x = Math.floor(Math.random() * 4);
     y = Math.floor(Math.random() * 4);
-    } while (game[x][y]!=0)
+    } while (game[x][y]!==0)
     game[x][y]=2
     setTiles([...game]);
     mergedBoard[x][y] = 2;
@@ -235,25 +234,21 @@ const onKeyPressed = (event) => {
     if (event.keyCode === 38) {
       // up arrow
       moveUp();
-      dir="up"
       setTimeout(resetMerged, 200);
   }
   else if (event.keyCode === 40) {
       // down arrow
     moveDown();
-    dir="down"
     setTimeout(resetMerged, 200);
   }
   else if (event.keyCode === 37) {
      // left arrow
      moveLeft();
-     dir="left"
      setTimeout(resetMerged, 200);
   }
   else if (event.keyCode === 39) {
      // right arrow
      moveRight();
-     dir="right"
      setTimeout(resetMerged, 200);
   }
   
